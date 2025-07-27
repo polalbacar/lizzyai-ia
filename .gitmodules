@@ -1,0 +1,6 @@
+[submodule "lizzyai-interview-analysis-backend"]
+	path = lizzyai-interview-analysis-backend
+	url = https://github.com/polalbacar/lizzyai-interview-analysis-backend.git
+[submodule "lizzyai-interview-analysis-frontend"]
+	path = lizzyai-interview-analysis-frontend
+	url = https://github.com/polalbacar/lizzyai-interview-analysis-frontend.git
