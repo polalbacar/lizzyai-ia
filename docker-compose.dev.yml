@@ -19,6 +19,7 @@ services:
       - ./lizzyai-interview-analysis-backend/main.py:/app/main.py
       - ./lizzyai-interview-analysis-backend/requirements.txt:/app/requirements.txt
       - ./lizzyai-interview-analysis-backend/temp:/app/temp
+      - ./lizzyai-interview-analysis-backend/output:/app/output
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/v1/health', timeout=5)"]
