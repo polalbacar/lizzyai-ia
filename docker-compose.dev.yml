@@ -1,0 +1,64 @@
+services:
+  lizzyai-backend-dev:
+    build: 
+      context: ./lizzyai-interview-analysis-backend
+      dockerfile: Dockerfile
+    container_name: lizzyai-backend-dev
+    ports:
+      - "8000:8000"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - PORT=8000
+      - HOST=0.0.0.0
+      - ENVIRONMENT=development
+      - LOG_LEVEL=INFO
+      - PYTHONPATH=/app
+    volumes:
+      # Mount source code for hot reload
+      - ./lizzyai-interview-analysis-backend/app:/app/app
+      - ./lizzyai-interview-analysis-backend/main.py:/app/main.py
+      - ./lizzyai-interview-analysis-backend/requirements.txt:/app/requirements.txt
+      - ./lizzyai-interview-analysis-backend/temp:/app/temp
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/v1/health', timeout=5)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    # Override command to enable auto-reload
+    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+    networks:
+      - lizzyai-dev-network
+
+  lizzyai-frontend-dev:
+    build:
+      context: ./lizzyai-interview-analysis-frontend
+      dockerfile: Dockerfile.dev
+    container_name: lizzyai-frontend-dev
+    ports:
+      - "8080:8080"
+    environment:
+      - NODE_ENV=development
+      - VITE_API_URL=http://localhost:8000
+    volumes:
+      # Mount source code for hot reload
+      - ./lizzyai-interview-analysis-frontend/src:/app/src
+      - ./lizzyai-interview-analysis-frontend/public:/app/public
+      - ./lizzyai-interview-analysis-frontend/index.html:/app/index.html
+      - ./lizzyai-interview-analysis-frontend/vite.config.ts:/app/vite.config.ts
+      - ./lizzyai-interview-analysis-frontend/tailwind.config.ts:/app/tailwind.config.ts
+      - ./lizzyai-interview-analysis-frontend/tsconfig.json:/app/tsconfig.json
+      - ./lizzyai-interview-analysis-frontend/package.json:/app/package.json
+      # Exclude node_modules to avoid conflicts
+      - /app/node_modules
+    depends_on:
+      lizzyai-backend-dev:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - lizzyai-dev-network
+
+networks:
+  lizzyai-dev-network:
+    driver: bridge 
