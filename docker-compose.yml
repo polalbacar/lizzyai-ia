@@ -1,9 +1,9 @@
-version: '3.8'
-
 services:
   lizzyai-backend:
     build: ./lizzyai-interview-analysis-backend
     container_name: lizzyai-backend
+    ports:
+      - "8000:8000"
     environment:
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - PORT=8000
@@ -14,7 +14,7 @@ services:
       - ./lizzyai-interview-analysis-backend/temp:/app/temp
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/v1/health', timeout=5)"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -26,7 +26,7 @@ services:
     build: ./lizzyai-interview-analysis-frontend
     container_name: lizzyai-frontend
     ports:
-      - "80:80"
+      - "8080:80"
     depends_on:
       lizzyai-backend:
         condition: service_healthy
