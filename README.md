@@ -46,7 +46,7 @@ lizzyai-ia/                           # Main repository
 ### Prerequisites
 - **Git** (with submodule support)
 - **Docker** & **Docker Compose**
-- **OpenAI API Key** (for Whisper and GPT-4 access)
+- **OpenAI API Key** (for Whisper and GPT-4o access)
 
 ### Setup Instructions
 
@@ -76,9 +76,8 @@ lizzyai-ia/                           # Main repository
    ```
 
 4. **Access the application**:
-   - **Frontend**: http://localhost (Main interview interface)
-   - **API Documentation**: http://localhost/docs (Swagger UI)
-   - **Health Check**: http://localhost/api/v1/health
+   - **Frontend**: http://localhost:8080 (Main interview interface)
+   - **API Documentation**: http://0.0.0.0:8000/docs (Swagger UI)
 
 That's it! 🎉 The complete system is now running and ready to process interviews.
 
