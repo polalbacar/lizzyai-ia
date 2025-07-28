@@ -4,10 +4,14 @@
 
 LizzyAI is an intelligent recruitment tool that automates the evaluation of job interviews using advanced AI. The system transcribes candidate interviews, analyzes responses, and provides comprehensive fraud detection and scoring to help recruiters make informed hiring decisions.
 
+**🎬 See it in action! Click the image below to watch a demo:**
+
+[![LizzyAI Frontend Screenshot](LizzyAI%20Frontend%20Screenshot.png)](https://drive.google.com/file/d/1uqN3nS28XO8CwxKkQhbJRkayJaAiG3ej/view?usp=sharing)
+
 ## ✨ What LizzyAI Does
 
 - **🎵 Audio Transcription**: Converts interview recordings to text using OpenAI Whisper
-- **🤖 Intelligent Analysis**: Segments interviews into question-answer pairs using GPT-4  
+- **🤖 Intelligent Analysis**: Segments interviews into question-answer pairs using GPT-4o  
 - **🔍 Fraud Detection**: Analyzes answers for signs of cheating, external help, or scripted responses
 - **📊 Comprehensive Scoring**: Provides detailed insights and fraud risk scores for each answer
 - **📋 Interview Reports**: Generates complete evaluation reports with candidate details and recommendations
@@ -26,7 +30,7 @@ lizzyai-ia/                           # Main repository
 ├── 🐍 lizzyai-interview-analysis-backend/     # Git submodule
 │   ├── FastAPI application
 │   ├── OpenAI Whisper integration
-│   ├── GPT-4 analysis engine
+│   ├── GPT-4o analysis engine
 │   └── RESTful API endpoints
 └── ⚛️ lizzyai-interview-analysis-frontend/    # Git submodule
     ├── React + TypeScript UI
@@ -98,7 +102,7 @@ docker-compose -f docker-compose.dev.yml up --build
 
 1. **Upload**: Users upload audio files through the web interface
 2. **Transcription**: OpenAI Whisper converts speech to text
-3. **Segmentation**: GPT-4 identifies individual Q&A pairs
+3. **Segmentation**: GPT-4o identifies individual Q&A pairs
 4. **Analysis**: Each answer is analyzed for fraud indicators:
    - Reading aloud from external sources
    - External help or coaching
